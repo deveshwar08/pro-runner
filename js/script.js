@@ -13,7 +13,7 @@ let currentTime = 0;
 let score = 0;
 let playerName;
 let gameOver = false;
-
+let gameStarted = false;
 gameArea.appendChild(canvas);
 canvas.height = gameArea.clientHeight;
 canvas.width = gameArea.clientWidth;
@@ -23,7 +23,7 @@ function displayScore()
     document.getElementById("score-area").innerHTML = "";
     if(localStorage.getItem("HighScore") == null)
     {
-        return true;
+        return;
     }
     let retrievedHighScore = JSON.parse(localStorage.getItem("HighScore"));
     let h1 = document.createElement("h1");
@@ -67,6 +67,7 @@ function popUpScore(){
 }
 function calculateScore(){
     score += 0.01;
+    document.getElementById("live-score").innerHTML = +(Math.round(score + "e+2")  + "e-2");
     t = setTimeout(function() {
         calculateScore();
     }, 10);
@@ -121,6 +122,13 @@ function LowerHole(){
 }
 
 function switchSide(){
+    if(gameStarted == false)
+    {
+        gameStarted = true;
+        calculateScore();
+        updateTime();
+        return;
+    }
     if(playerPosition == "down")
         playerPosition = "up";
     else if(playerPosition == "up")
@@ -179,7 +187,7 @@ function isFallen(hole)
     return false;
 }
 document.body.addEventListener('keydown', function(e) {
-  if(/*e.keyCode == 32 &&*/ e.target == document.body) {
+  if(e.target == document.body) {
     e.preventDefault();
   }
 });
@@ -191,5 +199,4 @@ document.body.onkeyup = function(e){
 createRunner();
 createPlatform();
 displayScore();
-calculateScore();
-updateTime();
+
