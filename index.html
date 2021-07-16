@@ -10,13 +10,21 @@
         <title>Pro Runner</title>
     </head>
     <body onclick="switchSide()">
-        <div id="score-area">
-
+        <div style="text-align:center;">
+            <h1>ProRunner</h1>
+            <p>Press &lt;space&gt; or click to switch side</p>
         </div>
-        <div id="game-area">
+        <div id="game-area"></div>
+        <div id = "score-popup">
+            <div id = "score-popup-header">
+                <button id="close-button" onclick="closePopup()">&times;</button>
+            </div>
+            <div id="score-popup-body">
 
+            </div>
         </div>
-        <p>Press &lt;space&gt; or click to switch side</p>
+        <div id="score-area"></div>
+        <div id="overlay"></div>
         <script src="js/script.js" type="text/javascript"></script>
     </body>
 </html>
